@@ -1,7 +1,12 @@
 steps:
   # Build the container image using the Dockerfile now at root
   - name: 'gcr.io/cloud-builders/docker'
-    args: ['build', '-t', 'us-central1-docker.pkg.dev/$PROJECT_ID/elevenlabs-wrapper-repo/wrapper-image', '.']
+    args: [
+      'build', 
+      '-t', 'us-central1-docker.pkg.dev/$PROJECT_ID/elevenlabs-wrapper-repo/wrapper-image', 
+      '-f', 'Dockerfile', 
+      '.' 
+    ]
   
   # Push to Registry
   - name: 'gcr.io/cloud-builders/docker'
