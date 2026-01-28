@@ -49,7 +49,7 @@ const ScenarioFlow: React.FC = () => {
  const agentId = dbScenario?.agent_id || searchParams.get('agent_id') || 'agent_9701kg09nwp2fc5t8ew3d5apd277';
  const title = dbScenario?.title || searchParams.get('title') || 'Healthcare Communication Simulation';
  const description = dbScenario?.scenario_description || searchParams.get('scenario_description') || 'Practice speaking with a patient.';
- const avatarUrl = dbScenario?.avatar_url || searchParams.get('avatar_url') || 'https://drive.google.com/file/d/1rbz6o6UrqPDDNw0JN7jrLHwZEhDZRu6k/view';
+ const avatarUrl = dbScenario?.avatar_url || searchParams.get('avatar_url') || '//firebasestorage.googleapis.com/v0/b/eleven-labs-wrapper.firebasestorage.app/o/download%20(1)%20(1).png?alt=media&token=abe30b98-29f9-4be2-b0f3-06ce40ea08e4';
  const instructions = dbScenario?.clinician_objective || searchParams.get('clinician_objective') || 'Focus on connecting and building trust with the patient.';
  const goal = dbScenario?.communication_goal || searchParams.get('communication_goal_') || 'The 4 Cs of Relational Care';
 
