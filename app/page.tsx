@@ -1,7 +1,7 @@
 "use client";
 
 import React, { Suspense } from 'react';
-import ScenarioFlow from '../components/scenario/ScenarioFlow';
+import ScenarioFlow from '@/components/scenario/ScenarioFlow';
 
 // We need Suspense because ScenarioFlow uses useSearchParams
 export default function Page() {
