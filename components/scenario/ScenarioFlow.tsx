@@ -2,6 +2,8 @@
 
 import React, { useState, useEffect } from 'react';
 import { useSearchParams } from 'next/navigation';
+import { db } from '@/lib/firebase';
+import { doc, getDoc } from 'firebase/firestore';
 import IntroScreen from './IntroScreen';
 import SimulationScreen from './SimulationScreen';
 import CompletionScreen from './CompletionScreen';
@@ -11,13 +13,38 @@ type ScreenState = 'intro' | 'simulation' | 'completion';
 const ScenarioFlow: React.FC = () => {
   const searchParams = useSearchParams();
   const [currentScreen, setCurrentScreen] = useState<ScreenState>('intro');
-  
-  // Default values if params are missing (using the user's provided test agent as fallback)
-  const agentId = searchParams.get('agent_id') || 'agent_9701kg09nwp2fc5t8ew3d5apd277';
-  const title = searchParams.get('title') || 'Customer Service Scenario';
-  const description = searchParams.get('description') || 'In this scenario, you will practice handling a customer inquiry about a billing discrepancy. The customer is slightly annoyed but willing to listen.';
-  const avatarUrl = searchParams.get('avatar_url') || 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80';
-  const instructions = searchParams.get('instructions') || 'Listen carefully to the customer\'s concern. Acknowledge their frustration, verify the details, and propose a solution. Speak clearly and maintain a professional tone.';
+  const [dbScenario, setDbScenario] = useState<any>(null);
+  const [loading, setLoading] = useState(true);
+
+  const scenarioId = searchParams.get('scenario_id');
+
+  // This is the "Brain" that pulls from Firestore
+  useEffect(() => {
+    const fetchFromFirebase = async () => {
+      if (scenarioId) {
+        try {
+          const docRef = doc(db, "scenarios", scenarioId);
+          const docSnap = await getDoc(docRef);
+          if (docSnap.exists()) {
+            setDbScenario(docSnap.data());
+          }
+        } catch (error) {
+          console.error("Error fetching scenario from Firestore:", error);
+        }
+      }
+      setLoading(false);
+    };
+
+    fetchFromFirebase();
+  }, [scenarioId]);
+
+  // Hierarchical Logic: 1. Firestore Data > 2. URL Params > 3. Hardcoded Defaults
+  const agentId = dbScenario?.agent_id || searchParams.get('agent_id') || 'agent_9701kg09nwp2fc5t8ew3d5apd277';
+  const title = dbScenario?.title || searchParams.get('title') || 'Healthcare Communication Simulation';
+  const description = dbScenario?.scenario_description || searchParams.get('scenario_description') || 'Practice speaking with a patient.';
+  const avatarUrl = dbScenario?.avatar_url || searchParams.get('avatar_url') || 'https://drive.google.com/file/d/1rbz6o6UrqPDDNw0JN7jrLHwZEhDZRu6k/view';
+  const instructions = dbScenario?.clinician_objective || searchParams.get('clinician_objective') || 'Focus on connecting and building trust with the patient.';
+  const goal = dbScenario?.communication_goal || searchParams.get('communication_goal_') || 'The 4 Cs of Relational Care';
 
   const handleStart = () => {
     setCurrentScreen('simulation');
