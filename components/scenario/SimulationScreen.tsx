@@ -14,6 +14,7 @@ interface SimulationScreenProps {
 const SimulationScreen: React.FC<SimulationScreenProps> = ({
   agentId,
   avatarUrl,
+  persona_first_name
   onComplete,
 }) => {
   const [isMuted, setIsMuted] = useState(false);
@@ -173,7 +174,7 @@ const SimulationScreen: React.FC<SimulationScreenProps> = ({
           onClick={handleEndSession}
           className="group flex items-center gap-2 px-4 py-2 rounded-full bg-white/50 hover:bg-white border border-[#C3DBE9] text-[#454C55] hover:text-[#C74B4B] transition-all duration-300 backdrop-blur-sm"
         >
-          <span className="text-sm font-medium">End Simulation</span>
+          <span className="text-sm font-medium">End Conversation</span>
           <X size={18} />
         </button>
       </div>
@@ -229,7 +230,7 @@ const SimulationScreen: React.FC<SimulationScreenProps> = ({
               className="absolute -bottom-12 left-1/2 transform -translate-x-1/2 whitespace-nowrap"
             >
               <span className="px-4 py-1.5 bg-[#0E1D43] text-white text-xs font-bold rounded-full shadow-lg tracking-wider uppercase">
-                Agent Speaking
+                {persona_first_name} Speaking
               </span>
             </motion.div>
           )}

@@ -23,10 +23,10 @@ const CompletionScreen: React.FC<CompletionScreenProps> = ({ onRestart }) => {
           </div>
         </div>
         
-        <h2 className="text-3xl font-bold text-[#0E1D43] mb-4">Session Complete!</h2>
+        <h2 className="text-3xl font-bold text-[#0E1D43] mb-4">Simulation Complete!</h2>
         
         <p className="text-[#454C55] mb-8 leading-relaxed">
-          Great job! You have successfully completed this simulation scenario. 
+          Great job! You have successfully completed this simulation. 
           Feel free to restart if you'd like to practice again.
         </p>
         

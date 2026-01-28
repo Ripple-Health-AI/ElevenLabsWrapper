@@ -16,7 +16,9 @@ const IntroScreen: React.FC<IntroScreenProps> = ({
   title,
   scenario_description,
   avatarUrl,
+  persona_name_age,
   clinician_objective,
+  communication_goal,
   onStart,
 }) => {
   return (
@@ -29,7 +31,7 @@ const IntroScreen: React.FC<IntroScreenProps> = ({
       >
         <div className="bg-[#0E1D43] p-6 text-white">
           <h1 className="text-2xl md:text-3xl font-bold">{title}</h1>
-          <p className="text-[#C3DBE9] mt-2 opacity-90">Scenario Simulation</p>
+          <p className="text-[#C3DBE9] mt-2 opacity-90">A Ripple Health AI Simulation</p>
         </div>
 
         <div className="p-8">
@@ -49,7 +51,7 @@ const IntroScreen: React.FC<IntroScreenProps> = ({
               </div>
               <div className="mt-4 text-center">
                 <span className="inline-block px-3 py-1 bg-[#E4EDF3] text-[#0E1D43] text-sm font-semibold rounded-full">
-                  Patient Persona
+                  {persona_name_age}
                 </span>
               </div>
             </div>

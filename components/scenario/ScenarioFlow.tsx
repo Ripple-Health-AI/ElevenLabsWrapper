@@ -52,10 +52,11 @@ const ScenarioFlow: React.FC = () => {
  const agentId = dbScenario?.agent_id || searchParams.get('agent_id') || 'agent_9701kg09nwp2fc5t8ew3d5apd277';
  const title = dbScenario?.title || searchParams.get('title') || 'Healthcare Communication Simulation';
  const description = dbScenario?.scenario_description || searchParams.get('scenario_description') || 'Practice speaking with a patient.';
- const avatarUrl = dbScenario?.avatar_url || searchParams.get('avatar_url') || '//firebasestorage.googleapis.com/v0/b/eleven-labs-wrapper.firebasestorage.app/o/download%20(1)%20(1).png?alt=media&token=abe30b98-29f9-4be2-b0f3-06ce40ea08e4';
+ const avatarUrl = dbScenario?.avatar_url || searchParams.get('avatar_url') || 'https://firebasestorage.googleapis.com/v0/b/eleven-labs-wrapper.firebasestorage.app/o/Ripple%20Square%20Logo.png?alt=media&token=353bfdd6-c85f-41dd-9681-4e60ec8d658f';
  const instructions = dbScenario?.clinician_objective || searchParams.get('clinician_objective') || 'Focus on connecting and building trust with the patient.';
  const goal = dbScenario?.communication_goal || searchParams.get('communication_goal_') || 'The 4 Cs of Relational Care';
-
+ const persona = dbScenario?.persona_name_age || searchParams.get('persona_name_age') || 'Patient Persona'
+ const persona_first_name = dbScenario?.persona_first_name || searchParams.get('persona_first_name') || 'Patient'
 
  const handleStart = () => {
   setShowDisclaimer(true);
@@ -88,6 +89,8 @@ const ScenarioFlow: React.FC = () => {
            scenario_description={description}
            avatarUrl={avatarUrl}
            clinician_objective={instructions}
+           persona_name_age={persona}
+           communication_goal={goal}
            onStart={handleStart}
          />
        )}
@@ -102,6 +105,7 @@ const ScenarioFlow: React.FC = () => {
          <SimulationScreen
            agentId={agentId}
            avatarUrl={avatarUrl}
+           persona_first_name={persona_first_name}
            onComplete={handleComplete}
          />
        )}
