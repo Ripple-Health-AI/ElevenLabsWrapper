@@ -8,13 +8,14 @@ import { useConversation } from '@elevenlabs/react';
 interface SimulationScreenProps {
   agentId: string;
   avatarUrl?: string;
+  persona_first_name: string;
   onComplete: () => void;
 }
 
 const SimulationScreen: React.FC<SimulationScreenProps> = ({
   agentId,
   avatarUrl,
-  persona_first_name
+  persona_first_name,
   onComplete,
 }) => {
   const [isMuted, setIsMuted] = useState(false);

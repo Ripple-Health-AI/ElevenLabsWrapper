@@ -9,6 +9,8 @@ interface IntroScreenProps {
   scenario_description: string;
   avatarUrl?: string;
   clinician_objective: string;
+  persona_name_age: string;
+  communication_goal: string;
   onStart: () => void;
 }
 
