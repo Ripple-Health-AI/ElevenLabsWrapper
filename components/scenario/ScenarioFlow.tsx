@@ -92,13 +92,13 @@ const ScenarioFlow: React.FC = () => {
          />
        )}
        
-       {
+      
        <DisclaimerModal
         isOpen={showDisclaimer}
         onConfirm={handleConfirmDisclaimer}
        />
 
-       currentScreen === 'simulation' && (
+       {currentScreen === 'simulation' && (
          <SimulationScreen
            agentId={agentId}
            avatarUrl={avatarUrl}
