@@ -57,7 +57,7 @@ const IntroScreen: React.FC<IntroScreenProps> = ({
                 </span>
               </div>
 
-              <p className="mt-3 text-xl font-bold text-[#0E1D43] opacity-80 text-center">
+              <p className="mt-8 text-xl font-bold text-[#0E1D43] opacity-80 text-center">
                 Communication Goal: 
               </p>
               <p className="mt-3 text-l font-semibold text-[#0E1D43] opacity-80 text-center">
