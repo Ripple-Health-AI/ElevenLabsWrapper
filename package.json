@@ -1,5 +1,5 @@
 {
-  "name": "my-app",
+  "name": "eleven-labs-wrapper",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -9,6 +9,8 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@elevenlabs/react": "^0.13.1",
+    "framer-motion": "^12.29.2",
     "@hookform/resolvers": "^5.0.1",
     "@radix-ui/react-accordion": "^1.2.8",
     "@radix-ui/react-alert-dialog": "^1.1.11",
