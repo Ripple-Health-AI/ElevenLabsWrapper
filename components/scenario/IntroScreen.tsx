@@ -6,17 +6,17 @@ import { Play, Info, User } from 'lucide-react';
 
 interface IntroScreenProps {
   title: string;
-  description: string;
+  scenario_description: string;
   avatarUrl?: string;
-  instructions: string;
+  clinician_objective: string;
   onStart: () => void;
 }
 
 const IntroScreen: React.FC<IntroScreenProps> = ({
   title,
-  description,
+  scenario_description,
   avatarUrl,
-  instructions,
+  clinician_objective,
   onStart,
 }) => {
   return (
@@ -49,7 +49,7 @@ const IntroScreen: React.FC<IntroScreenProps> = ({
               </div>
               <div className="mt-4 text-center">
                 <span className="inline-block px-3 py-1 bg-[#E4EDF3] text-[#0E1D43] text-sm font-semibold rounded-full">
-                  AI Agent
+                  Patient Persona
                 </span>
               </div>
             </div>
@@ -62,14 +62,14 @@ const IntroScreen: React.FC<IntroScreenProps> = ({
                   Scenario Description
                 </h2>
                 <p className="text-[#454C55] leading-relaxed">
-                  {description}
+                  {scenario_description}
                 </p>
               </div>
 
               <div className="bg-[#E4EDF3]/50 p-5 rounded-xl border border-[#C3DBE9]">
-                <h3 className="font-semibold text-[#0E1D43] mb-2">Instructions</h3>
+                <h3 className="font-semibold text-[#0E1D43] mb-2">Clinician Objective</h3>
                 <p className="text-[#454C55] text-sm">
-                  {instructions}
+                  {clinician_objective}
                 </p>
               </div>
 
