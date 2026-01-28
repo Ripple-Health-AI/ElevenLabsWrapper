@@ -5,7 +5,7 @@ WORKDIR /app
 
 # Copy package files from the frontend directory
 COPY package.json package-lock.json* ./
-RUN npm ci
+RUN npm install
 
 # Stage 2: Rebuild the source code
 FROM node:20-alpine AS builder
