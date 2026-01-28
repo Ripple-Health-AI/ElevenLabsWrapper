@@ -78,9 +78,9 @@ const ScenarioFlow: React.FC = () => {
        {currentScreen === 'intro' && (
          <IntroScreen
            title={title}
-           description={description}
+           scenario_description={description}
            avatarUrl={avatarUrl}
-           instructions={instructions}
+           clinician_objective={instructions}
            onStart={handleStart}
          />
        )}

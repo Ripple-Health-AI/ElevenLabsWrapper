@@ -5,7 +5,7 @@ const nextConfig: NextConfig = {
  output: "standalone",
  experimental: {
    serverComponentsExternalPackages: ['firebase-admin']
- }
+ },
  devIndicators: false,
  eslint: {
    ignoreDuringBuilds: true,
