@@ -56,6 +56,10 @@ const IntroScreen: React.FC<IntroScreenProps> = ({
                   {persona_name_age}
                 </span>
               </div>
+
+              <p className="mt-3 text-sm font-medium text-[#0E1D43] opacity-80 italic text-center">
+                Communication Goal: {communication_goal}
+              </p>
             </div>
 
             {/* Content Section */}
