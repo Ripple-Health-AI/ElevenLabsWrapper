@@ -271,8 +271,8 @@ const SimulationScreen: React.FC<SimulationScreenProps> = ({
               <Loader2 className="w-10 h-10 text-[#0E1D43] animate-spin" />
             </div>
           </div>
-          <p className="mt-6 text-[#0E1D43] font-semibold text-lg tracking-tight">Connecting to Agent...</p>
-          <p className="text-[#454C55] text-sm mt-2">Preparing your simulation environment</p>
+          <p className="mt-6 text-[#0E1D43] font-semibold text-lg tracking-tight">Preparing Patient Simulation...</p>
+          <p className="text-[#454C55] text-sm mt-2">Entering the room with {persona_first_name}</p>
         </div>
       )}
     </div>
