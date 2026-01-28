@@ -7,6 +7,7 @@ import { db } from '@/lib/firebase';
 import { doc, getDoc } from 'firebase/firestore';
 import IntroScreen from './IntroScreen';
 import SimulationScreen from './SimulationScreen';
+import DisclaimerModal from './DisclaimerModal';
 import CompletionScreen from './CompletionScreen';
 
 
@@ -19,6 +20,8 @@ const ScenarioFlow: React.FC = () => {
  const [dbScenario, setDbScenario] = useState<any>(null);
  const [loading, setLoading] = useState(true);
 
+
+ const [showDisclaimer, setShowDisclaimer] = useState(false);
 
  const scenarioId = searchParams.get('scenario_id');
 
@@ -55,12 +58,16 @@ const ScenarioFlow: React.FC = () => {
 
 
  const handleStart = () => {
-   setCurrentScreen('simulation');
- };
-
+  setShowDisclaimer(true);
+ };   
+ 
+ const handleConfirmDisclaimer = () => {
+  setShowDisclaimer(false);
+  setCurrentScreen('simulation');
+ }
 
  const handleComplete = () => {
-   setCurrentScreen('completion');
+  setCurrentScreen('completion');
  };
 
 
@@ -84,9 +91,14 @@ const ScenarioFlow: React.FC = () => {
            onStart={handleStart}
          />
        )}
+       
+       {
+       <DisclaimerModal
+        isOpen={showDisclaimer}
+        onConfirm={handleConfirmDisclaimer}
+       />
 
-
-       {currentScreen === 'simulation' && (
+       currentScreen === 'simulation' && (
          <SimulationScreen
            agentId={agentId}
            avatarUrl={avatarUrl}
