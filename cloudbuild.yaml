@@ -1,11 +1,11 @@
 steps:
   # Build the container image using the Dockerfile now at root
   - name: 'gcr.io/cloud-builders/docker'
-    args: ['build', '-t', 'gcr.io/$PROJECT_ID/elevenlabs-wrapper', '.']
+    args: ['build', '-t', 'us-central1-docker.pkg.dev/$PROJECT_ID/elevenlabs-wrapper-repo/wrapper-image', '.']
   
   # Push to Registry
   - name: 'gcr.io/cloud-builders/docker'
-    args: ['push', 'gcr.io/$PROJECT_ID/elevenlabs-wrapper']
+    args: ['push', 'us-central1-docker.pkg.dev/$PROJECT_ID/elevenlabs-wrapper-repo/wrapper-image']
 
   # Deploy to Cloud Run
   - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
@@ -15,7 +15,7 @@ steps:
       - 'deploy'
       - 'eleven-labs-service'
       - '--image'
-      - 'gcr.io/$PROJECT_ID/elevenlabs-wrapper'
+      - 'us-central1-docker.pkg.dev/$PROJECT_ID/elevenlabs-wrapper-repo/wrapper-image'
       - '--region'
       - 'us-central1'
       - '--allow-unauthenticated'
