@@ -46,8 +46,9 @@ const SimulationScreen: React.FC<SimulationScreenProps> = ({
       } else {
         setConnectionError('Failed to connect to the agent. Please try again.');
       }
-    }, // Fixed closing bracket for onError
-    onModeChange: (mode: any) => { // Added type to fix 'implicitly has any type' error
+    },
+    onModeChange: (mode: any) => { 
+      console.log('Mode changed to:', mode);
       setIsAgentListening(mode === 'listening');
     }
   });
@@ -262,7 +263,7 @@ const SimulationScreen: React.FC<SimulationScreenProps> = ({
               ) : (
                 // If not muted and simulation is active, show the waveform
                 status === 'connected' ? (
-                  <VoiceWaveform isSpeaking={isAgentListening && !isMuted} />
+                  <VoiceWaveform isSpeaking={(isAgentListening || status === 'connected') && !isMuted && !isSpeaking} />
                 ) : (
                   <Mic size={24} />
                 )

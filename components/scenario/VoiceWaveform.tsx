@@ -8,11 +8,14 @@ interface VoiceWaveformProps {
 }
 
 const VoiceWaveform = ({ isSpeaking }: VoiceWaveformProps) => {
-  // Simple animation variants for the bars
+  // We define "initial" as static and "animate" as the dancing sequence
   const barVariants = {
-    initial: { scaleY: 0.3 },
+    initial: { 
+      scaleY: 0.3,
+      transition: { duration: 0.2 } 
+    },
     animate: (i: number) => ({
-      scaleY: isSpeaking ? [0.3, 0.8, 0.4, 0.9, 0.3] : 0.3,
+      scaleY: [0.3, 0.8, 0.4, 0.9, 0.3],
       transition: {
         duration: 0.6,
         repeat: Infinity,
@@ -30,7 +33,9 @@ const VoiceWaveform = ({ isSpeaking }: VoiceWaveformProps) => {
           custom={i}
           variants={barVariants}
           initial="initial"
-          animate="animate"
+          // THIS IS THE KEY CHANGE: 
+          // We toggle the state here based on the prop
+          animate={isSpeaking ? "animate" : "initial"}
           className="w-[3px] h-full bg-white rounded-full origin-center"
         />
       ))}
