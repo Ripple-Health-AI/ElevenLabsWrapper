@@ -57,6 +57,9 @@ const SimulationScreen: React.FC<SimulationScreenProps> = ({
   const { status, isSpeaking } = conversation;
   const [isAgentListening, setIsAgentListening] = useState(false);
 
+  const isListening = status === 'connected' && isAgentListening && !isMuted;
+  const micVolume = useAudioVisualizer(isListening);
+
   const startSession = useCallback(async () => {
     setPermissionError(false);
     setConnectionError(null);
