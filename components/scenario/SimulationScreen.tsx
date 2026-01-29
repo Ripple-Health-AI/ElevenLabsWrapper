@@ -22,15 +22,18 @@ const SimulationScreen: React.FC<SimulationScreenProps> = ({
   const [isMuted, setIsMuted] = useState(false);
   const [permissionError, setPermissionError] = useState<boolean>(false);
   const [connectionError, setConnectionError] = useState<string | null>(null);
-  
+ 
   const conversation = useConversation({
+    onConnect: () => {
+      console.log('Connected to conversation');
+    },
     onDisconnect: () => {
       // Only trigger complete if we were previously connected or it wasn't an error
       if (!permissionError && !connectionError) {
         onComplete();
       }
     },
-    onError: (error) => {
+    onError: (error: any) => { // Added type to fix 'implicitly has any type' error
       console.error('Conversation error:', error);
       const errorMessage = typeof error === 'string' ? error : 
                           error instanceof Error ? error.message : 
@@ -43,10 +46,14 @@ const SimulationScreen: React.FC<SimulationScreenProps> = ({
       } else {
         setConnectionError('Failed to connect to the agent. Please try again.');
       }
+    }, // Fixed closing bracket for onError
+    onModeChange: (mode: any) => { // Added type to fix 'implicitly has any type' error
+      setIsAgentListening(mode === 'listening');
     }
   });
 
   const { status, isSpeaking } = conversation;
+  const [isAgentListening, setIsAgentListening] = useState(false);
 
   const startSession = useCallback(async () => {
     setPermissionError(false);
@@ -255,7 +262,7 @@ const SimulationScreen: React.FC<SimulationScreenProps> = ({
               ) : (
                 // If not muted and simulation is active, show the waveform
                 status === 'connected' ? (
-                  <VoiceWaveform isSpeaking={isSpeaking} />
+                  <VoiceWaveform isSpeaking={isAgentListening && !isMuted} />
                 ) : (
                   <Mic size={24} />
                 )
