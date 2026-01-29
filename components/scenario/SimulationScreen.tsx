@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Mic, MicOff, Volume2, Loader2, X, AlertCircle, RefreshCw } from 'lucide-react';
 import { useConversation } from '@elevenlabs/react';
 import VoiceWaveform from './VoiceWaveform';
+import { useAudioVisualizer } from '@/hooks/use-audio-visualizer';
 
 interface SimulationScreenProps {
   agentId: string;
@@ -261,9 +262,8 @@ const SimulationScreen: React.FC<SimulationScreenProps> = ({
               {isMuted ? (
                 <MicOff size={24} />
               ) : (
-                // If not muted and simulation is active, show the waveform
                 status === 'connected' ? (
-                  <VoiceWaveform isSpeaking={(isAgentListening || status === 'connected') && !isMuted && !isSpeaking} />
+                  <VoiceWaveform volume={micVolume} />
                 ) : (
                   <Mic size={24} />
                 )
