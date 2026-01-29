@@ -8,6 +8,7 @@ import { doc, getDoc } from 'firebase/firestore';
 import IntroScreen from './IntroScreen';
 import SimulationScreen from './SimulationScreen';
 import DisclaimerModal from './DisclaimerModal';
+import PerformanceReport from './PerformanceReport';
 import CompletionScreen from './CompletionScreen';
 
 
