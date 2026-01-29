@@ -10,7 +10,7 @@ interface SimulationScreenProps {
   agentId: string;
   avatarUrl?: string;
   persona_first_name: string;
-  onComplete: () => void;
+  onComplete: (finalTranscript: {role: string, text: string}[] ) => void;
 }
 
 const SimulationScreen: React.FC<SimulationScreenProps> = ({
@@ -22,18 +22,19 @@ const SimulationScreen: React.FC<SimulationScreenProps> = ({
   const [isMuted, setIsMuted] = useState(false);
   const [permissionError, setPermissionError] = useState<boolean>(false);
   const [connectionError, setConnectionError] = useState<string | null>(null);
- 
+  
+  const [transcript, setTranscript] = useState<{role: string, text: string}[]>([]);
+
   const conversation = useConversation({
     onConnect: () => {
       console.log('Connected to conversation');
     },
     onDisconnect: () => {
-      // Only trigger complete if we were previously connected or it wasn't an error
       if (!permissionError && !connectionError) {
-        onComplete();
+        onComplete(transcript);
       }
     },
-    onError: (error: any) => { // Added type to fix 'implicitly has any type' error
+    onError: (error: any) => {
       console.error('Conversation error:', error);
       const errorMessage = typeof error === 'string' ? error : 
                           error instanceof Error ? error.message : 
@@ -50,6 +51,14 @@ const SimulationScreen: React.FC<SimulationScreenProps> = ({
     onModeChange: (mode: any) => { 
       console.log('Mode changed to:', mode);
       setIsAgentListening(mode === 'listening');
+    },
+    onMessage: (message: any) => {
+      if (message.source === 'user' || message.source === 'ai') {
+        setTranscript(prev => [...prev, { 
+          role: message.source === 'user' ? 'Clinician' : 'Patient', 
+          text: message.message 
+        }]);
+      }
     }
   });
 
@@ -118,7 +127,6 @@ const SimulationScreen: React.FC<SimulationScreenProps> = ({
     if (typeof endFunc === 'function') {
       await endFunc();
     }
-    onComplete();
   }, [conversation, onComplete]);
 
   const toggleMute = () => {

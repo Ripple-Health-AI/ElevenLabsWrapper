@@ -11,7 +11,7 @@ import DisclaimerModal from './DisclaimerModal';
 import CompletionScreen from './CompletionScreen';
 
 
-type ScreenState = 'intro' | 'simulation' | 'completion';
+type ScreenState = 'intro' | 'simulation' | 'evaluation' | 'completion';
 
 
 const ScenarioFlow: React.FC = () => {
@@ -19,7 +19,8 @@ const ScenarioFlow: React.FC = () => {
  const [currentScreen, setCurrentScreen] = useState<ScreenState>('intro');
  const [dbScenario, setDbScenario] = useState<any>(null);
  const [loading, setLoading] = useState(true);
-
+ const [finalTranscript, setFinalTranscript] = useState<{role: string, text: string}[]>([]);
+ const [evaluationData, setEvaluationData] = useState<any>(null);
 
  const [showDisclaimer, setShowDisclaimer] = useState(false);
 
@@ -67,8 +68,9 @@ const ScenarioFlow: React.FC = () => {
   setCurrentScreen('simulation');
  }
 
- const handleComplete = () => {
-  setCurrentScreen('completion');
+ const handleComplete = (transcript: {role: string, text: string}[]) => {
+  setFinalTranscript(transcript);
+  setCurrentScreen('evaluation');
  };
 
 
@@ -109,7 +111,14 @@ const ScenarioFlow: React.FC = () => {
            onComplete={handleComplete}
          />
        )}
-
+      
+      {currentScreen === 'evaluation' && (
+        <PerformanceReport 
+          transcript={finalTranscript} 
+          onRestart={handleRestart}
+          onHome={() => setCurrentScreen('intro')}
+        />
+      )}
 
        {currentScreen === 'completion' && (
          <CompletionScreen
