@@ -4,6 +4,7 @@ import React, { useEffect, useState, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Mic, MicOff, Volume2, Loader2, X, AlertCircle, RefreshCw } from 'lucide-react';
 import { useConversation } from '@elevenlabs/react';
+import VoiceWaveform from './VoiceWaveform';
 
 interface SimulationScreenProps {
   agentId: string;
@@ -243,14 +244,22 @@ const SimulationScreen: React.FC<SimulationScreenProps> = ({
         <div className="flex items-center gap-6 bg-white/40 backdrop-blur-md px-8 py-4 rounded-full border border-white/50 shadow-xl">
           <button
             onClick={toggleMute}
-            className={`p-4 rounded-full transition-all duration-300 transform hover:scale-105 ${
+            className={`p-4 rounded-full transition-all duration-300 transform hover:scale-105 flex items-center justify-center ${
               isMuted 
-                ? 'bg-[#C74B4B] text-white shadow-lg shadow-[#C74B4B]/30' 
-                : 'bg-[#0E1D43] text-white shadow-lg shadow-[#0E1D43]/30 hover:bg-[#1a2f63]'
+                ? 'bg-[#C74B4B] text-white shadow-lg' 
+                : 'bg-[#0E1D43] text-white shadow-lg hover:bg-[#1a2f63]'
             }`}
-            title={isMuted ? "Unmute Microphone" : "Mute Microphone"}
-          >
-            {isMuted ? <MicOff size={24} /> : <Mic size={24} />}
+            >
+              {isMuted ? (
+                <MicOff size={24} />
+              ) : (
+                // If not muted and simulation is active, show the waveform
+                status === 'connected' ? (
+                  <VoiceWaveform isSpeaking={isSpeaking} />
+                ) : (
+                  <Mic size={24} />
+                )
+              )}
           </button>
           
           <div className="h-8 w-[1px] bg-[#454C55]/20 mx-2" />
